@@ -1,0 +1,87 @@
+{
+  "blog": {
+    "relatedArticles": "Verwandte Artikel"
+  },
+  "article": {
+    "relatedArticles": "Verwandte Artikel",
+    "featured": "Highlight",
+    "toc": "Inhaltsverzeichnis"
+  },
+  "languages": {
+    "en": "Englisch",
+    "de": "Deutsch"
+  },
+  "pages": {
+    "homepage": "Startseite",
+    "about": "About Seite",
+    "protected": "Protected",
+    "dashboard": "Übersichtsseite",
+    "profile": "Profilseite"
+  },
+  "claps": {
+    "clapText": "Klatschen Sie, wenn Ihnen der Artikel gefallen hat.",
+    "clapLogin": "Bitte melden Sie sich an, damit Sie Klatschen können"
+  },
+  "sitemaphtml": {
+    "landingpages": "Hauptseiten",
+    "blogpostpages": "Blogseiten",
+    "tagpages": "Kategorieseiten"
+  },
+  "sitemapcounter": {
+    "placeholder": "Sitemap URL eingeben"
+  },
+  "tagPage": {
+    "relatedArticles": "Posts zum Thema"
+  },
+  "landingPage": {
+    "latestArticles": "Neueste Posts"
+  },
+  "sidebar": {
+    "home": "Startseite",
+    "chatroom": "Chatraum",
+    "user": "Benutzer",
+    "newsletter": "Newsletter",
+    "activities": "Aktivitäten"
+  },
+  "user": {
+    "login": "Anmelden/Registrieren",
+    "logout": "Abmelden",
+    "register": "Registrieren",
+    "passwordreset": "Password zurücksetzen",
+    "profile": "Profil",
+    "users": "Benutzer",
+    "languageswitcher": "Sprache umschalten",
+    "adduser": "Benutzer hinzufügen",
+    "addrole": "Rolle hinzufügen",
+    "updatevisitdata": "Besuchsdaten aktualisieren",
+    "promoteadmin": "Rolle ändern",
+    "selectrole": "Rolle auswählen",
+    "changedto": "geändert zu",
+    "rolemissing": "Bitte eine Rolle auswählen",
+    "datamissing": "Daten nicht vorhanden",
+    "roles": "Rollen",
+    "searchforroles": "Rollensuche",
+    "role": "Rolle",
+    "createdat": "Erstellt am",
+    "actions": "Aktionen",
+    "newsletterdelete": "Newslettereintrag entfernen",
+    "newsletterdeleteconfirm": "Newslettereintrag erfolgreich entfernt",
+    "deleteuser": "Benutzer löschen"
+  },
+  "search": {
+    "button": "Suche",
+    "searchResults": "Suchergebnisse",
+    "searchResultsFor": "Suchergebnisse für",
+    "noResultsFound": "Keine Ergebnisse gefunden",
+    "resultsFoundIn": "Ergebnisse gefunden in",
+    "searchPlaceholder": "Suchen auf Example.dev...",
+    "dashboardsearchplaceholder": "Suchen nach Benutzern/Rollen auf ...",
+    "dashboardsearchhighline": "Benutzer",
+    "dashboardsearchdescription": "Suchen Sie nach Benutzern, um deren Profile anzuzeigen und zu verwalten.",
+    "searchdescription": "Nachfolgend finden Sie alle verfügbaren Tags und Ihre Suchergebnisse auf ..."
+  },
+  "copybutton": {
+    "beforeclick": "Kopieren",
+    "afterclick": "Kopiert"
+  }
+}

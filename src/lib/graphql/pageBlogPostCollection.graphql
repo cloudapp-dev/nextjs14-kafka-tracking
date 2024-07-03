@@ -1,0 +1,22 @@
+query pageBlogPostCollection(
+  $locale: String
+  $preview: Boolean
+  $limit: Int
+  $skip: Int
+  $order: [PageBlogPostOrder]
+  $where: PageBlogPostFilter
+) {
+  pageBlogPostCollection(
+    limit: $limit
+    skip: $skip
+    locale: $locale
+    preview: $preview
+    order: $order
+    where: $where
+  ) {
+    total
+    items {
+      ...PageBlogPostFields
+    }
+  }
+}
