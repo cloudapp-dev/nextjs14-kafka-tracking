@@ -23,6 +23,8 @@ export async function POST(req: Request) {
     platform,
     useragent,
     referer,
+    fetchsite,
+    created_at,
   } = await req.json();
 
   let data = await prisma.tracking.create({
@@ -38,6 +40,8 @@ export async function POST(req: Request) {
       platform: platform,
       useragent: useragent,
       referer: referer,
+      fetchsite: fetchsite,
+      created_at: created_at,
     },
   });
 

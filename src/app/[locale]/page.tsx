@@ -28,6 +28,9 @@ import Sitemapcounter from "@/components/tools/sitemapcounter/counter.component"
 import SitemapChecker from "@/components/tools/sitemapchecker/sitemapchecker.component";
 // import Slugify from "@/components/tools/slugify/slugify.component";
 
+//Kafka
+// import { consumeMessages } from "@/lib/kafkaconsmer";
+
 export const revalidate = revalidateDuration; // revalidate at most every hour
 export const dynamic = "force-dynamic";
 
@@ -135,6 +138,13 @@ async function Home({ params, searchParams }: PageProps) {
   const currentPage = Number(searchParams?.page) || 1;
 
   const page = landingPageData.pageLandingCollection?.items[0];
+
+  // const handleMessage = async (message: string) => {
+  //   console.log("Received message:", message);
+  //   // Add your trigger logic here
+  // };
+
+  // consumeMessages("tracking", handleMessage);
 
   if (!page) {
     // If a blog post can't be found,

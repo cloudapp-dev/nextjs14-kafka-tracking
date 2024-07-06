@@ -1,61 +1,81 @@
-// import type { NextApiRequest, NextApiResponse } from "next";
-// import { runConsumer } from "../../kafkaConsumer";
-
-// export default async function handler(
-//   req: NextApiRequest,
-//   res: NextApiResponse
-// ) {
-//   try {
-//     runConsumer();
-//     res.status(200).json({ message: "Kafka consumer started" });
-//   } catch (error) {
-//     res.status(500).json({ error: error.message });
-//   }
-// }
-import prisma from "@/lib/prisma";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
+import { Kafka } from "@upstash/kafka";
+export const dynamic = "force-dynamic";
 
 const apikey = process.env.API_KEY;
 
-export async function POST(req: Request) {
-  if (req.headers.get("x-api-key") !== apikey) {
+const kafka = new Kafka({
+  url: process.env.KAFKA_URL || "",
+  username: process.env.KAFKA_USERNAME || "",
+  password: process.env.KAFKA_PASSWORD || "",
+});
+
+async function sendToPrisma(message: any) {
+  const response = await fetch(
+    `${process.env.NEXT_PUBLIC_BASE_URL}/api/user/tracking`,
+    {
+      method: "POST",
+      body: JSON.stringify(message),
+      headers: new Headers({
+        "Content-Type": "application/json" || "",
+        "x-api-key": apikey || "",
+      }),
+    }
+  );
+
+  const data = await response.json();
+  const returnData = data?.data;
+
+  // console.log("Return Data", returnData);
+
+  if (response.ok) {
+    return NextResponse.json(
+      {
+        returnData,
+      },
+      { status: 200 }
+    );
+  } else {
+    return NextResponse.json(
+      { error: "Failed to Post Tracking Data" },
+      { status: 500 }
+    );
+  }
+}
+
+export async function POST(request: NextRequest) {
+  if (request.headers.get("x-api-key") !== apikey) {
     return new NextResponse(
       JSON.stringify({ status: "fail", message: "You are not authorized" }),
       { status: 401 }
     );
   }
 
-  const {
-    country,
-    city,
-    region,
-    pathname,
-    url,
-    nexturl,
-    ip,
-    mobile,
-    platform,
-    useragent,
-    referer,
-  } = await req.json();
+  const c = kafka.consumer();
 
-  let data = await prisma.tracking.create({
-    data: {
-      country: country,
-      city: city,
-      region: region,
-      pathname: pathname,
-      url: url,
-      nexturl: nexturl,
-      ip: ip,
-      mobile: mobile,
-      platform: platform,
-      useragent: useragent,
-      referer: referer,
-    },
+  const messages = await c.consume({
+    consumerGroupId: "trackingGroup",
+    instanceId: "trackingInstance",
+    topics: ["tracking"],
+    autoOffsetReset: "earliest",
   });
 
-  return NextResponse.json({
-    data,
+  messages.forEach(async (message) => {
+    const content = message.value;
+
+    const responsePrisma = await sendToPrisma(JSON.parse(content));
+    const prismadata = await responsePrisma.json();
+    // const prismareturn = prismadata?.returnData;
+
+    // console.log("prismadata", prismareturn);
   });
+
+  if (messages !== null) {
+    return NextResponse.json({ messages: messages.length || 0 });
+  } else {
+    return NextResponse.json(
+      { error: "Failed to fetch messages from Kafka Cluster" },
+      { status: 500 }
+    );
+  }
 }

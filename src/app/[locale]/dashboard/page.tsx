@@ -6,6 +6,7 @@ import { createTranslation } from "@/app/i18n/server";
 // import Chart from "../../../components/dashboard/chart.component";
 import type { LocaleTypes } from "@/app/i18n/settings";
 import Sidebar from "@/components/sidebar/dashboard/sidebar.component";
+import Tracking from "@/components/dashboard/tracking.component";
 
 export default async function Dashboard({
   params: { locale },
@@ -34,6 +35,7 @@ export default async function Dashboard({
       {/* Sidebar */}
       <Sidebar />
       {/* <Chart /> */}
+      <Tracking />
     </main>
   );
 }

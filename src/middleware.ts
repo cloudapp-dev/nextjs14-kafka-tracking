@@ -11,38 +11,42 @@ const kafka = new Kafka({
   password: process.env.KAFKA_PASSWORD || "",
 });
 
-async function sendToPrisma(message: any) {
-  await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/user/tracking`, {
-    method: "POST",
-    body: JSON.stringify(message),
-    headers: new Headers({
-      "Content-Type": "application/json" || "",
-      "x-api-key": apikey || "",
-    }),
-  });
-}
+// Pushing tracking Info direct to Postgres
+
+// async function sendToPrisma(message: any) {
+//   await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/user/tracking`, {
+//     method: "POST",
+//     body: JSON.stringify(message),
+//     headers: new Headers({
+//       "Content-Type": "application/json" || "",
+//       "x-api-key": apikey || "",
+//     }),
+//   });
+// }
 
 export async function middleware(request: NextRequest, event: NextFetchEvent) {
   //Middleware to track user data
-  const { ip } = request;
 
-  // console.log("request", request);
+  // Getting Tracking Data for direct Postgres
 
-  const message = {
-    country: request.geo?.country,
-    city: request.geo?.city,
-    region: request.geo?.region,
-    pathname: request.nextUrl.pathname,
-    url: request.url,
-    ip: ip,
-    nexturl: request.headers.get("next-url"),
-    mobile: request.headers.get("sec-ch-ua-mobile"),
-    platform: request.headers.get("sec-ch-ua-platform"),
-    useragent: request.headers.get("user-agent"),
-    referer: request.headers.get("referer"),
-  };
+  // const message = {
+  //   country: request.geo?.country,
+  //   city: request.geo?.city,
+  //   region: request.geo?.region,
+  //   pathname: request.nextUrl.pathname,
+  //   url: request.url,
+  //   ip: ip,
+  //   nexturl: request.headers.get("next-url"),
+  //   mobile: request.headers.get("sec-ch-ua-mobile"),
+  //   platform: request.headers.get("sec-ch-ua-platform"),
+  //   useragent: request.headers.get("user-agent"),
+  //   referer: request.headers.get("referer"),
+  // };
 
-  sendToPrisma(message);
+  // sendToPrisma(message);
+
+  const newDate = new Date();
+  newDate.setHours(newDate.getHours() + 2);
 
   const messagekafka = {
     country: request.geo?.country,
@@ -51,16 +55,18 @@ export async function middleware(request: NextRequest, event: NextFetchEvent) {
     pathname: request.nextUrl.pathname,
     url: request.url,
     ip: request.headers.get("x-real-ip"),
-    exip: ip,
+    exip: request.ip,
     nexturl: request.headers.get("next-url"),
     mobile: request.headers.get("sec-ch-ua-mobile"),
     platform: request.headers.get("sec-ch-ua-platform"),
     useragent: request.headers.get("user-agent"),
     referer: request.headers.get("referer"),
+    fetchsite: request.headers.get("sec-fetch-site"),
+    created_at: newDate.toISOString(),
   };
 
   const p = kafka.producer();
-  const topic = "web";
+  const topic = "tracking";
 
   event.waitUntil(p.produce(topic, JSON.stringify(messagekafka)));
 

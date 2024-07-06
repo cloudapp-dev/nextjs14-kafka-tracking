@@ -36,17 +36,19 @@ model roles {
 }
 
 model tracking {
-  id        Int      @id @default(autoincrement())
-  country   String?
-  city      String?
-  region    String?
-  url       String?
-  nexturl   String?
-  ip        String?
-  pathname  String?
-  mobile    String?
-  platform  String?
-  useragent String?
-  referer   String?
-  addedOn   DateTime @default(now())
+  id         Int       @id @default(autoincrement())
+  country    String?
+  city       String?
+  region     String?
+  url        String?
+  nexturl    String?
+  ip         String?
+  pathname   String?
+  mobile     String?
+  platform   String?
+  useragent  String?
+  referer    String?
+  fetchsite  String?
+  created_at DateTime?
+  addedOn    DateTime  @default(now())
 }
