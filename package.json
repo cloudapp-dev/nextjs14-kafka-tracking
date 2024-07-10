@@ -23,6 +23,7 @@
     "@heroicons/react": "^2.1.1",
     "@prisma/adapter-neon": "^5.14.0",
     "@prisma/client": "^5.14.0",
+    "@shikijs/transformers": "^1.10.3",
     "@tailwindcss/typography": "github:tailwindcss/typography",
     "@tremor/react": "^3.17.2",
     "@types/xml2js": "^0.4.14",
@@ -56,6 +57,7 @@
     "react-toastify": "^10.0.5",
     "schema-dts": "^1.1.2",
     "sharp": "^0.33.2",
+    "shiki": "^1.10.3",
     "tailwind-merge": "^2.2.1",
     "xml2js": "^0.6.2"
   },
