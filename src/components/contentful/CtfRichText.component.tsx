@@ -1,3 +1,4 @@
+"use client";
 import {
   documentToReactComponents,
   Options,
@@ -11,6 +12,8 @@ import { ArticleTocItem } from "@/components/contentful/ArticleTocItem";
 import { CtfPicture } from "@/components/contentful/CtfPicture.component";
 import { twMerge } from "tailwind-merge";
 import Link from "next/link";
+
+import SyntaxHighlightPost from "@/components/tools/syntaxhighlight/syntaxhighlightPost.component";
 
 export type EmbeddedEntryType = ComponentRichImage | null;
 
@@ -56,21 +59,25 @@ export const contentfulBaseRichTextOptions = ({
         showCodeText = showCodeText.replace("##", "");
       }
       return (
-        <pre>
-          <div className="mb-3">
-            {" "}
-            <CopyButton text={text} />
-          </div>
-          <code key={`${text}-key`}>
-            {markedfilename && (
-              <span className="inline-block px-1 py-1 text-base text-white bg-[#3c4f6a] rounded-lg">
-                {markedfilename}
-              </span>
-            )}
-            {showCodeText}
-            {/* {text.toString().replace(markedfilename, "")} */}
-          </code>
-        </pre>
+        <>
+          <SyntaxHighlightPost code={showCodeText} lang="typescript" />
+
+          {/* <pre>
+            <div className="mb-3">
+              {" "}
+              <CopyButton text={text} />
+            </div>
+            <code key={`${text}-key`}>
+              {markedfilename && (
+                <span className="inline-block px-1 py-1 text-base text-white bg-[#3c4f6a] rounded-lg">
+                  {markedfilename}
+                </span>
+              )}
+              {showCodeText}
+           
+            </code>
+          </pre> */}
+        </>
       );
     },
     [MARKS.ITALIC]: (text) => {
