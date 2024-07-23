@@ -50,14 +50,14 @@ export const contentfulBaseRichTextOptions = ({
       return <b key={`${text}-key`}>{text}</b>;
     },
     [MARKS.CODE]: (text: any) => {
-      let markedfilename = undefined;
+      // let markedfilename = undefined;
       let showCodeText = text.toString() || "";
-      const filename = getFileName(text.toString())[1];
-      if (filename) {
-        markedfilename = "#" + filename + "#";
-        showCodeText = text.toString().replace(markedfilename, "");
-        showCodeText = showCodeText.replace("##", "");
-      }
+      // const filename = getFileName(text.toString())[1];
+      // if (filename) {
+      //   markedfilename = "#" + filename + "#";
+      //   showCodeText = text.toString().replace(markedfilename, "");
+      //   showCodeText = showCodeText.replace("##", "");
+      // }
       return (
         <>
           <SyntaxHighlightPost code={showCodeText} lang="typescript" />
