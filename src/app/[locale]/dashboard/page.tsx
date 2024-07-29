@@ -6,7 +6,8 @@ import { createTranslation } from "@/app/i18n/server";
 // import Chart from "../../../components/dashboard/chart.component";
 import type { LocaleTypes } from "@/app/i18n/settings";
 import Sidebar from "@/components/sidebar/dashboard/sidebar.component";
-import Tracking from "@/components/dashboard/tracking.component";
+import Widgets from "@/components/webanalytics/Widgets";
+import DateFilter from "@/components/webanalytics/DateFilter";
 
 export default async function Dashboard({
   params: { locale },
@@ -35,7 +36,26 @@ export default async function Dashboard({
       {/* Sidebar */}
       <Sidebar />
       {/* <Chart /> */}
-      <Tracking />
+      {/* <Tracking /> */}
+      <div className="flex justify-between flex-col lg:flex-row gap-6">
+        <div className="flex gap-2 md:gap-10 justify-between md:justify-start">
+          <h1 className="flex items-center gap-2 min-w-max">
+            {/* <img
+            src={logo}
+            alt=""
+            width={16}
+            height={16}
+            onError={handleLogoError}
+            loading="lazy"
+          /> */}
+            {/* <span className="text-lg leading-6">{domain}</span> */}
+          </h1>
+          {/* <CurrentVisitors /> */}
+        </div>
+        <DateFilter />
+      </div>
+
+      <Widgets />
     </main>
   );
 }

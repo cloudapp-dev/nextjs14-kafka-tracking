@@ -14,6 +14,8 @@ import { locales } from "@/app/i18n/settings";
 import { client } from "@/lib/client";
 // Piwik Container
 import PiwikPro from "@/components/analytics/PiwikPro";
+// TinyBird Container
+import TinyBird from "@/components/analytics/tinybird";
 // Auth AD B2C
 import { NextAuthProvider } from "@/app/providers";
 
@@ -82,6 +84,8 @@ export default async function RootLayout({ children, params }: LayoutProps) {
               {children}
               {/*PiwikPro */}
               <PiwikPro />
+              {/*TinyBird */}
+              <TinyBird />
               <Footer footerItems={footerdata} />
             </Providers>
           </NextAuthProvider>
