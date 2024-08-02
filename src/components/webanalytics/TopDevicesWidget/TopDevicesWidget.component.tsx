@@ -1,17 +1,17 @@
 "use client";
 import { Fragment } from "react";
-import Widget from "../Widget";
-import useBrowsers from "@/lib/hooks/use-top-browsers";
-import { formatNumber } from "@/lib/utils";
 import { DonutChart } from "@tremor/react";
+import Widget from "../Widget";
+import useTopDevices from "@/lib/hooks/use-top-devices";
+import { formatNumber } from "@/lib/utils";
 import { tremorPieChartColors } from "@/styles/theme/tremor-colors";
 
-export default function BrowsersWidget() {
-  const { data, status, warning } = useBrowsers();
+export default function TopDevicesWidget() {
+  const { data, warning, status } = useTopDevices();
 
   return (
     <Widget>
-      <Widget.Title>Top Browsers</Widget.Title>
+      <Widget.Title>Top Devices</Widget.Title>
       <Widget.Content
         status={status}
         noData={!data?.data?.length}
@@ -19,26 +19,23 @@ export default function BrowsersWidget() {
       >
         <div className="w-full h-full grid grid-cols-2">
           <DonutChart
-            variant="pie"
             data={data?.data ?? []}
             category="visits"
-            index="browser"
+            index="device"
             colors={tremorPieChartColors.map(([color]) => color)}
-            // colors={["blue", "cyan", "indigo", "violet", "fuchsia"]}
             showLabel={false}
             valueFormatter={formatNumber}
-            onValueChange={(v) => console.log(v)}
           />
           <div className="justify-self-end">
-            <div className="grid gap-y-1 gap-4 grid-cols-2">
+            <div className="grid grid-cols-2 gap-y-1 gap-4">
               <div className="text-xs tracking-widest font-medium uppercase text-center truncate">
-                Browser
+                Device
               </div>
               <div className="text-xs tracking-widest font-medium uppercase text-right truncate">
                 Visitors
               </div>
-              {(data?.data ?? []).map(({ browser, visits }, index) => (
-                <Fragment key={browser}>
+              {(data?.data ?? []).map(({ device, visits }, index) => (
+                <Fragment key={device}>
                   <div className="flex items-center gap-2 text-sm leading-5 text-neutral-64 h-9 px-4 py-2 rounded-md z-10">
                     <div
                       className="h-4 min-w-[1rem]"
@@ -46,7 +43,7 @@ export default function BrowsersWidget() {
                         backgroundColor: tremorPieChartColors[index][1],
                       }}
                     />
-                    <span>{browser}</span>
+                    <span>{device}</span>
                   </div>
                   <div className="flex items-center justify-end text-neutral-64 h-9">
                     {formatNumber(visits)}

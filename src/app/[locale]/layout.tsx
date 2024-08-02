@@ -83,7 +83,7 @@ export default async function RootLayout({ children, params }: LayoutProps) {
               )}
               {children}
               {/*PiwikPro */}
-              <PiwikPro />
+              {/* <PiwikPro /> */}
               {/*TinyBird */}
               <TinyBird />
               <Footer footerItems={footerdata} />

@@ -13,8 +13,10 @@ export default function useDateFilter() {
     useState<DateRangePickerValue>();
 
   const setDateFilter = useCallback(
-    ([startDate, endDate, value]: DateRangePickerValue) => {
-      const lastDays = value ?? DateFilter.Custom;
+    ({ from, to, selectValue }: DateRangePickerValue) => {
+      const lastDays = selectValue ?? DateFilter.Custom;
+      const startDate = from;
+      const endDate = to;
 
       params.set("last_days", lastDays);
 
@@ -74,22 +76,23 @@ export default function useDateFilter() {
   ]);
 
   useEffect(() => {
-    setDateRangePickerValue([
-      moment(startDate).toDate(),
-      moment(endDate).toDate(),
-      lastDays === DateFilter.Custom ? null : lastDays,
-    ]);
+    const vallastDays = lastDays === DateFilter.Custom ? "" : lastDays;
+    setDateRangePickerValue({
+      from: moment(startDate).toDate(),
+      to: moment(endDate).toDate(),
+      selectValue: vallastDays,
+    });
   }, [startDate, endDate, lastDays]);
 
   const onDateRangePickerValueChange = useCallback(
-    ([startDate, endDate, value]: DateRangePickerValue) => {
+    ({ from, to, selectValue }: DateRangePickerValue) => {
       if (startDate && endDate) {
-        setDateFilter([startDate, endDate, value]);
+        setDateFilter({ from, to, selectValue });
       } else {
-        setDateRangePickerValue([startDate, endDate, value]);
+        setDateRangePickerValue({ from, to, selectValue });
       }
     },
-    [setDateFilter]
+    [setDateFilter, startDate, endDate]
   );
 
   return {

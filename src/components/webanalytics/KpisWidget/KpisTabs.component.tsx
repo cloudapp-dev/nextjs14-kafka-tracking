@@ -23,7 +23,7 @@ export default function KpisTabs({
           role="tab"
           aria-selected={selectedKpi === value}
           data-state={value === selectedKpi ? "active" : undefined}
-          className="relative cursor-pointer p-6 md:p-9 text-left md:text-center text-secondary hover:bg-primaryLight transition-colors sm:state-active:border-b-4 sm:state-active:border-primary state-active:text-primary sm:mb-2"
+          className="relative cursor-pointer p-6 md:p-9 text-left md:text-center dark:text-white text-[#25283D] dark:hover:bg-gray-700 hover:bg-[#e5f0ff] transition-colors sm:state-active:border-b-4 sm:state-active:border-[#0066FF] state-active:text-[#0066FF] sm:mb-2"
           onClick={() => onChange(value)}
         >
           <div className="flex flex-col gap-2 w-fit md:mx-auto">
@@ -31,13 +31,13 @@ export default function KpisTabs({
               {label}
             </span>
             <span
-              className="text-neutral-64 text-left font-normal"
+              className="text-[#636679] text-left font-normal"
               aria-hidden={true}
             >
               {totals ? formatter(totals[value]) : "-"}
             </span>
           </div>
-          <div className="hidden sm:block arrow absolute h-3 w-3 bg-primary -bottom-5" />
+          <div className="hidden sm:block arrow absolute h-3 w-3 bg-[#0066FF] -bottom-5" />
         </button>
       ))}
     </div>

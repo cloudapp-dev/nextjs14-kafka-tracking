@@ -1,28 +1,25 @@
 "use client";
 import Widget from "../Widget";
-import useTopPages from "@/lib/hooks/use-top-pages";
+import useTopLocations from "@/lib/hooks/use-top-locations";
 import { BarList } from "@tremor/react";
 import { useMemo } from "react";
-import { cx, formatNumber } from "@/lib/utils";
-import { TopPagesSorting } from "@/types/top-pages";
 import useParams from "@/lib/hooks/use-params";
-import useDomain from "@/lib/hooks/use-domain";
+import { TopLocationsSorting } from "@/types/top-locations";
+import { cx } from "@/lib/utils";
 
-export default function TopPagesWidget() {
-  const { data, status, warning } = useTopPages();
-  const { domain } = useDomain();
+export default function TopLocationsWidget() {
+  const { data, status, warning } = useTopLocations();
   const [sorting, setSorting] = useParams({
-    key: "top_pages_sorting",
-    values: Object.values(TopPagesSorting),
+    key: "top_locations_sorting",
+    values: Object.values(TopLocationsSorting),
   });
   const chartData = useMemo(
     () =>
       (data?.data ?? []).map((d) => ({
-        name: d.pathname,
+        name: d.location,
         value: d[sorting],
-        href: `https://${domain}${d.pathname}`,
       })),
-    [data?.data, domain, sorting]
+    [data?.data, sorting]
   );
 
   return (
@@ -30,28 +27,28 @@ export default function TopPagesWidget() {
       <Widget.Title>Top Pages</Widget.Title>
       <Widget.Content
         status={status}
-        noData={!chartData?.length}
+        noData={!data?.data?.length}
         warning={warning?.message}
       >
         <div className="grid grid-cols-5 gap-x-4 gap-y-2">
           <div className="col-span-3 text-xs font-semibold tracking-widest text-gray-500 uppercase h-5">
-            Content
+            Country
           </div>
           <div
             className={cx(
               "col-span-1 font-semibold text-xs text-right tracking-widest uppercase cursor-pointer h-5",
-              sorting === TopPagesSorting.Visitors && "text-primary"
+              sorting === TopLocationsSorting.Visitors && "text-primary"
             )}
-            onClick={() => setSorting(TopPagesSorting.Visitors)}
+            onClick={() => setSorting(TopLocationsSorting.Visitors)}
           >
             Visits
           </div>
           <div
             className={cx(
-              "col-span-1 row-span-1 font-semibold text-xs text-right tracking-widest uppercase cursor-pointer h-5",
-              sorting === TopPagesSorting.Pageviews && "text-primary"
+              "col-span-1 font-semibold text-xs text-right tracking-widest uppercase cursor-pointer h-5",
+              sorting === TopLocationsSorting.Pageviews && "text-primary"
             )}
-            onClick={() => setSorting(TopPagesSorting.Pageviews)}
+            onClick={() => setSorting(TopLocationsSorting.Pageviews)}
           >
             Pageviews
           </div>
@@ -60,22 +57,22 @@ export default function TopPagesWidget() {
             <BarList data={chartData} valueFormatter={(_: any) => ""} />
           </div>
           <div className="flex flex-col col-span-1 row-span-4 gap-2">
-            {(data?.data ?? []).map(({ pathname, visits }) => (
+            {(data?.data ?? []).map(({ location, visits }) => (
               <div
-                key={pathname}
+                key={location}
                 className="flex items-center justify-end w-full text-neutral-64 h-9"
               >
-                {formatNumber(visits ?? 0)}
+                {visits}
               </div>
             ))}
           </div>
           <div className="flex flex-col col-span-1 row-span-4 gap-2">
-            {(data?.data ?? []).map(({ pathname, hits }) => (
+            {(data?.data ?? []).map(({ location, hits }) => (
               <div
-                key={pathname}
+                key={location}
                 className="flex items-center justify-end w-full text-neutral-64 h-9"
               >
-                {formatNumber(hits)}
+                {hits}
               </div>
             ))}
           </div>

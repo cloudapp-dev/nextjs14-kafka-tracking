@@ -33,10 +33,19 @@ const BrowsersWidget = lazyLoadWidget(
 const TopPagesWidget = lazyLoadWidget(
   () => import("./TopPagesWidget/TopPagesWidget.component")
 );
-// const TrendWidget = lazyLoadWidget(() => import("./TrendWidget"), 40);
-// const TopDevicesWidget = lazyLoadWidget(() => import("./TopDevicesWidget"));
-// const TopSourcesWidget = lazyLoadWidget(() => import("./TopSourcesWidget"));
-// const TopLocationsWidget = lazyLoadWidget(() => import("./TopLocationsWidget"));
+const TrendWidget = lazyLoadWidget(
+  () => import("./TrendWidget/TrendWidget.component"),
+  40
+);
+const TopDevicesWidget = lazyLoadWidget(
+  () => import("./TopDevicesWidget/TopDevicesWidget.component")
+);
+const TopSourcesWidget = lazyLoadWidget(
+  () => import("./TopSourcesWidget/TopSourcesWidget.component")
+);
+const TopLocationsWidget = lazyLoadWidget(
+  () => import("./TopLocationsWidget/TopLocationsWidget.component")
+);
 
 export default function Widgets() {
   return (
@@ -45,25 +54,25 @@ export default function Widgets() {
         <KPIsWidget />
       </div>
       <div className="col-start-1 col-span-2 lg:col-span-1 grid grid-cols-1 gap-5 sm:gap-10 grid-rows-3-auto">
-        {/* <InView height={WidgetHeight.Small}>
+        <InView height={WidgetHeight.Small}>
           <TrendWidget />
-        </InView> */}
+        </InView>
         <InView height={WidgetHeight.Large}>
           <TopPagesWidget />
         </InView>
-        {/* <InView height={WidgetHeight.Large}>
+        <InView height={WidgetHeight.Large}>
           <TopLocationsWidget />
-        </InView> */}
+        </InView>
       </div>
       <div className="col-start-1 col-span-2 lg:col-start-2 lg:col-span-1 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 gap-5 sm:gap-10 grid-rows-2-auto lg:grid-rows-3-auto">
         <div className="col-span-1 md:col-span-2 lg:col-span-1">
-          {/* <InView height={WidgetHeight.Large}>
+          <InView height={WidgetHeight.Large}>
             <TopSourcesWidget />
-          </InView> */}
+          </InView>
         </div>
-        {/* <InView height={WidgetHeight.Medium}>
+        <InView height={WidgetHeight.Medium}>
           <TopDevicesWidget />
-        </InView> */}
+        </InView>
         <InView height={WidgetHeight.Medium}>
           <BrowsersWidget />
         </InView>

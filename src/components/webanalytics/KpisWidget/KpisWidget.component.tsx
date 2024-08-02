@@ -39,9 +39,11 @@ export default function KPIsWidget() {
           data={chartData}
           index="date"
           categories={[kpiOption.label]}
-          colors={["blue"]}
           valueFormatter={kpiOption.formatter}
           showLegend={false}
+          colors={["blue", "cyan", "indigo", "violet", "fuchsia"]}
+          className="h-80"
+          yAxisWidth={60}
         />
       </Widget.Content>
     </Widget>

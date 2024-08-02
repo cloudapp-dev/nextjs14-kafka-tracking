@@ -1,5 +1,5 @@
 "use client";
-import { useRouter, useSearchParams, useParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import moment from "moment";
 
 import { queryPipe } from "@/lib/apianalytics";
@@ -56,14 +56,13 @@ export default function useKpis() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const params = new URLSearchParams(searchParams.toString());
-  const { kpi: kpiParam } = useParams();
+  const kpiParam = searchParams.get("kpi") ?? "";
 
   const kpi = isKpi(kpiParam) ? kpiParam : "visits";
   const kpiOption = KPI_OPTIONS.find(({ value }) => value === kpi)!;
   const query = useQuery([kpi, startDate, endDate, "kpis"], getKpis);
 
   const setKpi = (kpi: KpiType) => {
-    // const searchParams = new URLSearchParams(window.location.search);
     params.set("kpi", kpi);
     router.push("/dashboard?" + params.toString(), { scroll: false });
   };
