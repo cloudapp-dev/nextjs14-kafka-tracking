@@ -16,6 +16,8 @@ import { client } from "@/lib/client";
 import PiwikPro from "@/components/analytics/PiwikPro";
 // TinyBird Container
 import TinyBird from "@/components/analytics/tinybird";
+// Custom Tracking Script/Hooks
+import CustomTracking from "@/components/analytics/customTracking";
 // Auth AD B2C
 import { NextAuthProvider } from "@/app/providers";
 
@@ -86,6 +88,8 @@ export default async function RootLayout({ children, params }: LayoutProps) {
               {/* <PiwikPro /> */}
               {/*TinyBird */}
               <TinyBird />
+              {/* Custom Tracking Hook */}
+              <CustomTracking />
               <Footer footerItems={footerdata} />
             </Providers>
           </NextAuthProvider>

@@ -35,6 +35,24 @@ model roles {
   addedOn DateTime @default(now())
 }
 
+model customtracking {
+  id         Int       @id @default(autoincrement())
+  country    String?
+  city       String?
+  region     String?
+  url        String?
+  pathname   String?
+  mobile     Boolean?
+  platform   String?
+  useragent  String?
+  referer    String?
+  created_at DateTime?
+  sessionId  String?
+  userId     String?
+  pageViewId String?
+  addedOn    DateTime  @default(now())
+}
+
 model tracking {
   id         Int       @id @default(autoincrement())
   country    String?
